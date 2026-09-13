@@ -66,23 +66,6 @@ const Login = () => {
         {errors.password && <p>{errors.password.message}</p>}
       </div>
 
-            <div>
-        <label htmlFor="">Confirm Password</label>
-        <input type="password" 
-                placeholder='.....' 
-                {
-                  ...register('password',{
-                    required: 'password is required',
-                    minLength: {
-                      value: 8,
-                      message: 'password is not matching'
-                    }
-                  })
-                }
-        />
-        {errors.password && <p>{errors.password.message}</p>}
-      </div>
-
       <button type='submit'>LogIn</button>
       <button type='submit'>Sigup</button>
       </form>
