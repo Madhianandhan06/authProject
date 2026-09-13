@@ -1,10 +1,14 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { loginSchema } from '../validation/authSchemas'
 
 
 const Login = () => {
 
-  const { register, handleSubmit, formState: {errors} } = useForm()
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: zodResolver(loginSchema),
+  })
 
   async function onSubmit(data){
     await new Promise((resolve) => setTimeout(resolve, 2000))
@@ -23,11 +27,7 @@ const Login = () => {
         <label htmlFor="">Name</label>
         <input type="text" 
                 placeholder='your name...' 
-                {
-                  ...register('name',{
-                    required:'name is required',
-                  })
-                }
+                {...register('name')}
         />
         {errors.name && <p>{errors.name.message}</p>}
       </div>
@@ -36,15 +36,7 @@ const Login = () => {
         <label htmlFor="">Email</label>
         <input type="text" 
                 placeholder='your name...' 
-                {
-                  ...register('email',{
-                    required:'email is required',
-                    pattern: {
-                      value: /^\S+@\S+\.\S+$/,
-                      message: 'enter a valid email address'
-                    }
-                  })
-                }
+                {...register('email')}
         />
         {errors.email && <p>{errors.email.message}</p>}
       </div>
@@ -53,15 +45,7 @@ const Login = () => {
         <label htmlFor="">Password</label>
         <input type="password" 
                 placeholder='.....' 
-                {
-                  ...register('password',{
-                    required: 'password is required',
-                    minLength: {
-                      value: 8,
-                      message: 'password must be 8 characters'
-                    }
-                  })
-                }
+                {...register('password')}
         />
         {errors.password && <p>{errors.password.message}</p>}
       </div>
